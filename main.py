@@ -3,14 +3,14 @@ from mysql.connector import Error #la clase error tiene la lista de errores
 import os
 
 #conexion
-def CrearConexion():
+def CrearConexion(usuario, passw):
     conexion = None
     try:
         conexion = mysql.connector.connect(
                     host= 'localhost', 
-                    user = 'root', 
-                    password = 'root', 
-                   # db = 'demo'
+                    user = usuario, 
+                    password = passw, 
+                    #db = 'demo'
                    )
         if conexion:
             print ("Conexion exitosa")
@@ -40,16 +40,14 @@ def ConsultaDatos(conexion):
         print (bd)
     cursor.close()
 
-con = CrearConexion() 
+user = os.environ.get("usuario_mysql")
+passw = os.environ.get("pass_mysql")
+
+con = CrearConexion(user, passw) 
 
 if con:
     ConsultaDatos(con)
     Desconectarse(con)
-
-
-
-
-
 
 
 # class DataBase:
